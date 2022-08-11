@@ -1,0 +1,42 @@
+<!-- we need to define a structure  -->
+
+<div class="flex_container">
+  <!-- align them column wise! -->
+  <div class="flex_left">
+    <!-- image -->
+
+    <div class="image">
+      <img src="assets/receiver.png" alt="" />
+    </div>
+  </div>
+
+  <div class="flex_right">
+    <!-- input bic  -->
+    <!-- search bar  -->
+    <!-- <ng-autocomplete></ng-autocomplete> -->
+
+    <div class="bic">
+      <div class="label">Enter your Bank Name:</div>
+
+      <div style="margin-bottom: 20px;" class="search_bar">
+        <ng-autocomplete #auto></ng-autocomplete>
+      </div>
+    </div>
+
+    <!-- input money -->
+    <div class="input_money">
+      <label class="label" for="amount"> Amount: </label>
+      <input name="amount" type="text" />
+    </div>
+    <!-- send button -->
+
+    <div class="send_button">
+      <div class="wrapper">
+        <div class="link_wrapper">
+          <a href="#">Send Money</a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
