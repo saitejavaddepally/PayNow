@@ -1,5 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-receiver',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiverComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
 
@@ -20,6 +21,10 @@ export class ReceiverComponent implements OnInit {
       (error) => {
         console.log(error.message)
       });
+  }
+
+  nextPage(){
+    this.router.navigate(['sender']);
   }
 
 }
