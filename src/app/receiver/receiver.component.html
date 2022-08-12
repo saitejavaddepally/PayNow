@@ -16,24 +16,35 @@
     <!-- <ng-autocomplete></ng-autocomplete> -->
 
     <div class="bic">
-      <div class="label">Enter your Bank Name:</div>
+      <div class="label">Enter your Receiver Bank Name:</div>
 
       <div style="margin-bottom: 20px" class="search_bar">
-        <!-- <ng-autocomplete #auto></ng-autocomplete> -->
+        <!--Using ng-option and for loop-->
+        <!-- <ng-select [(ngModel)]="selectedCar">
+          <ng-option *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+        </ng-select> -->
+
+        <!--Using items input-->
+        <ng-select
+
+        class="custom" [items]="receiverBanks" bindLabel="bank" bindValue="bic" [(ngModel)]="selectedBank"
+
+        >
+        </ng-select>
       </div>
     </div>
 
     <!-- input money -->
     <div class="input_money">
       <div class="label">Amount:</div>
-      <input name="amount" type="text" />
+      <input [(ngModel)] = "amount" name="amount" type="text" />
     </div>
     <!-- send button -->
 
     <div class="send_button">
       <div class="wrapper">
         <div class="link_wrapper">
-          <button>Send Money</button>
+          <button (click)="nextPage()">Send Money</button>
         </div>
       </div>
     </div>

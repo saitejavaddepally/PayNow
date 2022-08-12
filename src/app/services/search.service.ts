@@ -10,10 +10,12 @@ export class SearchService {
 
 
   searchBanksAndGetBic(){
-    const url = 'localhost:8080/all';
+    const url = 'http://localhost:8080/searchBank';
 
-    return this.httpClient.get(url);
+    return this.httpClient.post<any>(url, {
+      "details" : ""
+    });
   }
-  
+
 
 }

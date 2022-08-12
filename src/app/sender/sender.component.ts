@@ -10,6 +10,7 @@ import { AccountService } from '../services/account.service';
 export class SenderComponent implements OnInit {
   accountNumber: string = '87139550565094';
   isError = false;
+  transactionType! : string;
   constructor(
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
@@ -17,7 +18,11 @@ export class SenderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        this.transactionType = params['type'];
+      }
+    )
   }
 
   nextPage() {
@@ -26,13 +31,24 @@ export class SenderComponent implements OnInit {
       (data) => {
 
         if(data['isFound'] != null){
-          this.router.navigate(['receiver']);
+
+          const details = data['isFound'];
+
+          console.log(details.name);
+          if(this.transactionType === "bank" && !details.name.includes("HDFC")){
+            alert("Account Doesn't correspond to bank transaction ! name is " + details.name);
+            return;
+          }
+
+          this.router.navigate(['receiver'], {
+            queryParams: { type: this.transactionType, id : this.accountNumber },
+          });
         }
         else{
           alert("No user found!");
         }
 
-      }, 
+      },
       (error) => {
         alert("Something went wrong");
       }
