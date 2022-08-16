@@ -21,7 +21,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ShutdownComponent } from './components/shutdown/shutdown.component';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
+interface NgxSpinnerConfig {
+  type?: string;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +36,8 @@ import { ShutdownComponent } from './components/shutdown/shutdown.component';
     TransferTypeComponent,
     TransactionComponent,
     SenderComponent,
-    ShutdownComponent
+    ShutdownComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -46,9 +52,8 @@ import { ShutdownComponent } from './components/shutdown/shutdown.component';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatSelectSearchModule
-
-
+    MatSelectSearchModule,
+    NgxSpinnerModule
 
   ],
   providers: [],

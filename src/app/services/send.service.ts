@@ -8,13 +8,15 @@ export class SendService {
 
   constructor(private http: HttpClient) { }
 
-  sendMoney(senderDetails: any, receiverDetails: any, moneyToSend: number, transactionType: any){
+  sendMoney(senderDetails: any, receiverDetails: any, moneyToSend: number, transactionType: any, code: any, name: any){
     const url = "http://localhost:8080/sendMoney";
     return this.http.post<any>(url, {
       "senderDetails" : senderDetails,
       "receiverDetails" : receiverDetails,
       "moneyToSend": moneyToSend,
-      "transactionType": transactionType
+      "transactionType": transactionType,
+      "code": code,
+      "receiverName": name,
     });
   }
 

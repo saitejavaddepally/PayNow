@@ -6,6 +6,7 @@ import { ReceiverService } from '../services/receiver.service';
 import { SearchService } from '../services/search.service';
 import { SendService } from '../services/send.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService, Spinner } from 'ngx-spinner';
 
 @Component({
   selector: 'app-receiver',
@@ -18,9 +19,12 @@ export class ReceiverComponent implements OnInit {
   senderDetails!: any;
   receiverDetails!: any;
   amount!: any;
-
+  name!: any;
+  code: any;
+  isBankSelected = false;
   selectedBank!: string;
   transactionType!: string;
+  typeSelected!: string;
   id!: string;
   receiverBanks = [
 
@@ -29,9 +33,12 @@ export class ReceiverComponent implements OnInit {
     private accountService: AccountService,
     private receiverService: ReceiverService,
     private sendService: SendService,
-    private activatedRoute: ActivatedRoute, private searchService: SearchService, private http: HttpClient) { }
+    private activatedRoute: ActivatedRoute, private searchService: SearchService, private http: HttpClient, private spinner: NgxSpinnerService) {
+  }
 
   async ngOnInit() {
+    this.typeSelected = "line-spin-fade"
+
     this.activatedRoute.queryParams.subscribe(
       params => {
 
@@ -63,13 +70,15 @@ export class ReceiverComponent implements OnInit {
   }
 
 
-  async checkBalance(){
-      Swal.fire("Your balance is " + this.senderDetails['balance'], '', 'success');
+  async checkBalance() {
+    Swal.fire("Your balance is " + this.senderDetails['balance'], '', 'success');
 
   }
 
   async nextPage() {
     // get receiver details
+
+    this.spinner.show();
 
     await this.receiverService.validateAccountNumber(this.selectedBank).subscribe(
       (data) => {
@@ -78,26 +87,30 @@ export class ReceiverComponent implements OnInit {
         console.log(this.senderDetails, this.receiverDetails, this.amount, this.transactionType);
 
 
-         this.sendService.sendMoney(this.senderDetails, this.receiverDetails, parseInt(this.amount), this.transactionType).subscribe(
+        this.sendService.sendMoney(this.senderDetails, this.receiverDetails, parseInt(this.amount), this.transactionType, this.code, this.name).subscribe(
           (data) => {
 
             console.log(data);
 
-            if(data.code === "400"){
+            if (data.code === "400") {
               Swal.fire("Sorry insufficient balance", '', 'error');
+              this.router.navigate(['/transaction']);
               return;
             }
 
-            if(data.code === "201"){
-              alert(data.message);
+            if (data.code === "201") {
+              this.spinner.hide();
+              Swal.fire(data.message);
               return;
             }
 
-            Swal.fire("Transaction is successful", '', 'success');
+            Swal.fire("Transaction successful", '', 'success');
+            this.spinner.hide();
             this.router.navigate(['/transaction']);
 
           },
           (error) => {
+            this.spinner.hide();
             alert("something went wrong");
           }
         )

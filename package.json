@@ -24,6 +24,7 @@
     "angular-ng-autocomplete": "^2.0.12",
     "mat-select-search": "^1.2.21",
     "ng2-completer": "^9.0.1",
+    "ngx-spinner": "^14.0.0",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.26",
     "tslib": "^2.3.0",
