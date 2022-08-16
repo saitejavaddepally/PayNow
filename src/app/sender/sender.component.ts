@@ -37,7 +37,7 @@ export class SenderComponent implements OnInit {
 
           console.log(details.name);
           if(this.transactionType === "bank" && !details.name.includes("HDFC")){
-            Swal.fire("Account Doesn't correspond to bank transaction ! name is " + details.name, '', 'success');
+            Swal.fire("", "Account Doesn't correspond to bank transaction ! name is " + details.name, 'error');
             return;
           }
 

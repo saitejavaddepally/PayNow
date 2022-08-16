@@ -78,6 +78,7 @@ export class ReceiverComponent implements OnInit {
   async nextPage() {
     // get receiver details
 
+    Swal.getTimerProgressBar();
     this.spinner.show();
 
     await this.receiverService.validateAccountNumber(this.selectedBank).subscribe(
