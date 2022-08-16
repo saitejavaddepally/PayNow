@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AccountService } from '../services/account.service';
 
 @Component({
@@ -36,7 +37,7 @@ export class SenderComponent implements OnInit {
 
           console.log(details.name);
           if(this.transactionType === "bank" && !details.name.includes("HDFC")){
-            alert("Account Doesn't correspond to bank transaction ! name is " + details.name);
+            Swal.fire("Account Doesn't correspond to bank transaction ! name is " + details.name, '', 'success');
             return;
           }
 
@@ -45,12 +46,12 @@ export class SenderComponent implements OnInit {
           });
         }
         else{
-          alert("No user found!");
+          Swal.fire("No user found!", '', 'error');
         }
 
       },
       (error) => {
-        alert("Something went wrong");
+        Swal.fire("Something went wrong", '', 'error');
       }
     )
 

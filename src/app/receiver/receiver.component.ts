@@ -5,6 +5,7 @@ import { AccountService } from '../services/account.service';
 import { ReceiverService } from '../services/receiver.service';
 import { SearchService } from '../services/search.service';
 import { SendService } from '../services/send.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-receiver',
@@ -61,6 +62,12 @@ export class ReceiverComponent implements OnInit {
     )
   }
 
+
+  async checkBalance(){
+      Swal.fire("Your balance is " + this.senderDetails['balance'], '', 'success');
+
+  }
+
   async nextPage() {
     // get receiver details
 
@@ -77,7 +84,7 @@ export class ReceiverComponent implements OnInit {
             console.log(data);
 
             if(data.code === "400"){
-              alert("sorry insufficient balance!");
+              Swal.fire("Sorry insufficient balance", '', 'error');
               return;
             }
 
@@ -86,7 +93,7 @@ export class ReceiverComponent implements OnInit {
               return;
             }
 
-            alert("transaction is successful");
+            Swal.fire("Transaction is successful", '', 'success');
             this.router.navigate(['/transaction']);
 
           },

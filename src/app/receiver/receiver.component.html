@@ -25,11 +25,14 @@
         </ng-select> -->
 
         <!--Using items input-->
-        <ng-select
+        <ng-select class="custom" [items]="receiverBanks" bindLabel="bank" bindValue="bic" [(ngModel)]="selectedBank">
 
-        class="custom" [items]="receiverBanks" bindLabel="bank" bindValue="bic" [(ngModel)]="selectedBank"
-
-        >
+          <ng-template ng-label-tmp let-item="item">
+            <span>{{ item.bank + ' (' + item.bic  + ' )'}}</span>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+            <span>{{ item.bank + ' (' + item.bic  + ' )'}}</span>
+          </ng-template>
         </ng-select>
       </div>
     </div>
@@ -37,15 +40,19 @@
     <!-- input money -->
     <div class="input_money">
       <div class="label">Amount:</div>
-      <input [(ngModel)] = "amount" name="amount" type="text" />
+      <input [(ngModel)]="amount" name="amount" type="text" />
     </div>
     <!-- send button -->
 
     <div class="send_button">
-      <div class="wrapper">
-        <div class="link_wrapper">
+      <div   class="wrapper">
+        <span style="margin-right: 20px;" class="link_wrapper">
+          <button (click)="checkBalance()">Check Balance</button>
+        </span>
+
+        <span class="link_wrapper">
           <button (click)="nextPage()">Send Money</button>
-        </div>
+        </span>
       </div>
     </div>
   </div>
